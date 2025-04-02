@@ -1,0 +1,126 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.quiz-app {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 650px;
+    text-align: center;
+}
+
+h1, h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#setup-container label,
+#setup-container select {
+    margin: 10px;
+    font-size: 1rem;
+}
+
+.btn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    outline: none; /* Remove default outline */
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.btn:active {
+    transform: scale(0.98); /* Slight press effect */
+}
+
+/* Specific button styles */
+#start-btn, #restart-btn, #next-btn {
+    margin-top: 20px;
+    width: auto; /* Don't force full width */
+    padding: 10px 30px;
+}
+
+/* Styles for answer buttons during feedback */
+.btn.correct {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+.btn.incorrect {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.btn:disabled { /* Style for disabled buttons after answer */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
+.hidden {
+    display: none;
+}
+
+#question-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    min-height: 4em; /* Reserve space to prevent layout shifts */
+    display: flex; /* Center text vertically */
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+}
+
+#question-counter {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+#score-text {
+    font-size: 1.3rem;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.feedback {
+    margin-top: 15px;
+    font-weight: bold;
+    min-height: 1.2em; /* Reserve space */
+}
+.feedback.correct {
+    color: #28a745;
+}
+.feedback.incorrect {
+    color: #dc3545;
+}
