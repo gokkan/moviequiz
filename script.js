@@ -318,32 +318,58 @@ function resetState() {
 
 function selectAnswer(e) {
     const selectedButton = e.target;
-    const correct = selectedButton.dataset.correct === 'true';
+    const isCorrect = selectedButton.dataset.correct === 'true'; // Check if the CLICKED button represents the correct answer text
 
-    // Disable all buttons after selection
+    // Disable all buttons and apply specific styling
     Array.from(answerButtonsElement.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct === 'true');
-        button.disabled = true; // Disable button
+        button.disabled = true; // Disable the button
+
+        // Style the button that was actually clicked
+        if (button === selectedButton) {
+            if (isCorrect) {
+                button.classList.add('correct'); // Green for correct click
+            } else {
+                button.classList.add('incorrect'); // Red for incorrect click
+            }
+        }
+        // Style the ACTUAL correct answer IF it wasn't the one clicked (to show the user)
+        else if (button.dataset.correct === 'true') {
+            button.classList.add('correct'); // Also highlight the correct answer in green
+        }
+        // Style all other (incorrect, unclicked) buttons as inactive/grey
+        else {
+            button.classList.add('inactive');
+        }
     });
 
-    // Provide feedback and update score
-    if (correct) {
+    // Provide feedback text and update score
+    if (isCorrect) {
         score++;
         feedbackElement.innerText = 'Correct!';
         feedbackElement.classList.add('correct');
     } else {
-        feedbackElement.innerText = 'Wrong!';
+        // Modify feedback to guide the user to the highlighted correct answer
+        feedbackElement.innerText = 'Wrong! The correct answer is highlighted green.';
         feedbackElement.classList.add('incorrect');
     }
 
     // Show the Next button or finish quiz
     if (currentQuestionIndex < shuffledQuestions.length - 1) {
-        nextButton.classList.remove('hidden'); // Show next button
+        nextButton.classList.remove('hidden');
     } else {
-        // If it's the last question, show results after a short delay
-        setTimeout(showResults, 1000); // Wait 1 second before showing results
+        // Slightly longer delay to let the user see the colors before results
+        setTimeout(showResults, 1500); // e.g., 1.5 seconds
     }
 }
+
+// Also, ensure the resetState function clears the 'inactive' class, though since we remove
+// and recreate buttons, this might not be strictly necessary, but good practice.
+// No, resetState *removes* the buttons, so we don't need to explicitly remove the class.
+// The existing resetState is fine.
+
+// We also don't need the separate setStatusClass function anymore,
+// as its logic is now integrated into the selectAnswer loop.
+// You can delete the setStatusClass and clearStatusClass functions if they exist.
 
 function setStatusClass(element, isCorrect) {
     clearStatusClass(element);

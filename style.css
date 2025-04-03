@@ -81,10 +81,25 @@ h1, h2 {
     color: white;
 }
 
-.btn:disabled { /* Style for disabled buttons after answer */
-    cursor: not-allowed;
-    opacity: 0.7;
+/* Keep existing styles for .btn, .btn:hover, .btn.correct, .btn.incorrect */
+
+/* Style for unclicked, incorrect buttons AFTER an answer is selected */
+.btn.inactive {
+    background-color: #adb5bd; /* A standard grey color */
+    border-color: #adb5bd;
+    color: #e9ecef; /* Lighter text for greyed-out feel */
+    opacity: 0.65; /* Make them slightly faded */
 }
+
+/* Ensure the general disabled state doesn't clash badly,
+   the specific classes (correct, incorrect, inactive) will override */
+.btn:disabled {
+    cursor: not-allowed;
+    /* Opacity is now better handled by .inactive, but can leave a base opacity */
+    /* opacity: 0.7; */ /* Optional: remove or adjust if .inactive looks good */
+}
+
+
 
 
 .hidden {
